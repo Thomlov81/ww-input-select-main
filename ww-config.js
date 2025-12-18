@@ -39,27 +39,12 @@ export default {
                 ],
             },
             {
-                label: "Chip",
+                label: "Clear icon",
                 isCollapsible: true,
                 properties: [
-                    'chipFontFamily',
-                    'chipFontSize',
-                    'chipFontWeight',
-                    'chipFontColor',
-                    'chipPadding',
-                    'chipBgColor',
-                    'chipBorder',
-                    'chipBorderAll',
-                    'chipBorderTop',
-                    'chipBorderRight',
-                    'chipBorderBottom',
-                    'chipBorderLeft',
-                    'chipBorderRadius',
                     'chipIconUnselect',
                     'chipIconColor',
                     'chipIconSize',
-                    'chipImageSize',
-                    'chipImageRadius',
                 ],
             },
             {
@@ -1229,7 +1214,6 @@ export default {
                 tooltip: 'A string value representing the font family: "Arial", "Helvetica", etc.',
             },
             /* wwEditor:end */
-            hidden: content => content.selectType !== 'single',
         },
         selectedFontSize: {
             type: 'Length',
@@ -1252,7 +1236,6 @@ export default {
                 tooltip: 'A length value: "14px", "1rem", "100%", etc.',
             },
             /* wwEditor:end */
-            hidden: content => content.selectType !== 'single',
         },
         selectedFontWeight: {
             label: {
@@ -1285,7 +1268,6 @@ export default {
                 tooltip: 'A number value representing font weight: 100, 200, 300, 400, 500, 600, 700, 800, 900',
             },
             /* wwEditor:end */
-            hidden: content => content.selectType !== 'single',
         },
         selectedFontColor: {
             label: {
@@ -1303,7 +1285,6 @@ export default {
                 tooltip: 'A color value: "#333", "rgb(255, 0, 0)", "red", etc.',
             },
             /* wwEditor:end */
-            hidden: content => content.selectType !== 'single',
         },
         selectedTextAlign: {
             label: { en: 'Text align' },
@@ -1326,7 +1307,6 @@ export default {
                 tooltip: 'A string value: "left", "center", or "right"',
             },
             /* wwEditor:end */
-            hidden: content => content.selectType !== 'single',
         },
 
         /* ------------------------------------
@@ -1445,7 +1425,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipFontSize: {
             type: 'Length',
@@ -1462,7 +1442,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: '14px',
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipFontWeight: {
             label: {
@@ -1489,7 +1469,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipFontColor: {
             label: {
@@ -1501,7 +1481,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipPadding: {
             type: 'Spacing',
@@ -1513,7 +1493,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: '2px 8px',
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipBgColor: {
             label: {
@@ -1525,7 +1505,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorder: {
             type: 'Border',
@@ -1537,7 +1517,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorder: {
             type: 'TextRadioGroup',
@@ -1564,7 +1544,7 @@ export default {
                 __wwtype: 'f',
                 code: '[{"label":"Option 1","value":"opt1"},{"label":"Option 2","value":"opt2"}]',
             },
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorderAll: {
             type: 'Border',
@@ -1576,7 +1556,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: content => content.chipBorder || content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorderTop: {
             type: 'Border',
@@ -1588,7 +1568,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: content => !content.chipBorder || content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorderRight: {
             type: 'Border',
@@ -1600,7 +1580,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: content => !content.chipBorder || content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorderBottom: {
             type: 'Border',
@@ -1612,7 +1592,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: content => !content.chipBorder || content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorderLeft: {
             type: 'Border',
@@ -1624,7 +1604,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: content => !content.chipBorder || content.selectType == 'single',
+            hidden: () => true,
         },
         chipBorderRadius: {
             type: 'Spacing',
@@ -1642,7 +1622,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: content => content.selectType == 'single',
+            hidden: () => true,
         },
         chipIconUnselect: {
             label: { en: 'Unselect icon', fr: 'Icône désélection' },
@@ -1713,7 +1693,7 @@ export default {
                 tooltip: 'A number that defines the image size in chips: `14`',
             },
             /* wwEditor:end */
-            hidden: content => content.selectType == 'single' || content.optionType !== 'imageText',
+            hidden: () => true,
         },
         chipImageRadius: {
             type: 'Spacing',
@@ -1734,7 +1714,7 @@ export default {
             states: true,
             classes: true,
             defaultValue: '4px',
-            hidden: content => content.selectType == 'single' || content.optionType !== 'imageText',
+            hidden: () => true,
         },
 
         /* ------------------------------------

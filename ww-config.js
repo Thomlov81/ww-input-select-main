@@ -190,6 +190,7 @@ export default {
                 isCollapsible: true,
                 properties: [
                     'placeholder',
+                    'multiSelectSuffix',
                     'emptyStateText',
                     'searchPlaceholder',
                     'initialState',
@@ -684,6 +685,29 @@ export default {
             propertyHelp: {
                 tooltip:
                     'The placeholder text for the select. Available in the formula explorer in the Trigger element.',
+            },
+            /* wwEditor:end */
+        },
+        multiSelectSuffix: {
+            label: {
+                en: 'Selected items suffix',
+            },
+            type: 'Text',
+            defaultValue: { en: 'lokasjoner valgt' },
+            section: 'settings',
+            states: true,
+            bindable: true,
+            responsive: true,
+            multiLang: true,
+            hidden: content => content.selectType !== 'multiple',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'A string value to show after the count, e.g. "lokasjoner valgt"',
+            },
+            propertyHelp: {
+                tooltip:
+                    'The text to display after the selected count in multi-select mode (e.g., "3 lokasjoner valgt").',
             },
             /* wwEditor:end */
         },

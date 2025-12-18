@@ -17,23 +17,19 @@
         </div>
         <!-- MULTI SELECT -->
         <div v-else :style="triggerStyle">
-            <div v-if="isOptionSelected" class="ww-input-select__chip_container">
-                <div
-                    class="ww-input-select__chip"
-                    :style="chipStyle"
-                >
-                    <span>{{ selectedChipsCount }}</span>
-                    <div 
-                        class="ww-input-select__chip__clear"
-                        v-html="chipIconUnselect" 
-                        :style="chipClearIconStyle" 
-                        aria-hidden="true"
-                        @click="e => handleClearAllClick(e)"
-                    ></div>
-                </div>
-            </div>
+            <span v-if="isOptionSelected" :style="selectedCountStyle">{{ selectedChipsCount }} {{ multiSelectSuffix }}</span>
             <span v-else :style="placeholderStyle">{{ data.placeholder }}</span>
-            <div v-html="chipIcon" :style="triggerIconStyle" aria-hidden="true"></div>
+            <div class="ww-input-select__trigger-icons">
+                <div
+                    v-if="isOptionSelected"
+                    class="ww-input-select__clear-icon"
+                    v-html="chipIconUnselect"
+                    :style="chipClearIconStyle"
+                    aria-hidden="true"
+                    @click="e => handleClearAllClick(e)"
+                ></div>
+                <div v-html="chipIcon" :style="triggerIconStyle" aria-hidden="true"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -66,6 +62,7 @@ export default {
         const isSingleSelect = computed(() => props.content.selectType === 'single');
 
         const placeholder = computed(() => wwLib.wwLang.getText(props.content.placeholder));
+        const multiSelectSuffix = computed(() => wwLib.wwLang.getText(props.content.multiSelectSuffix));
         const selectedLabel = computed(() => {
             return localContext.value?.data?.select?.active?.details?.label;
         });
@@ -224,6 +221,15 @@ export default {
             };
         });
 
+        const selectedCountStyle = computed(() => {
+            return {
+                'font-size': props.content.selectedFontSize,
+                'font-family': props.content.selectedFontFamily,
+                color: props.content.selectedFontColor,
+                'font-weight': props.content.selectedFontWeight,
+            };
+        });
+
         const placeholderStyle = computed(() => {
             return {
                 'font-size': props.content.placeholderFontSize,
@@ -354,9 +360,11 @@ export default {
             localContext,
             selectedChips,
             selectedChipsCount,
+            multiSelectSuffix,
             triggerStyle,
             triggerIconStyle,
             selectedValueStyle,
+            selectedCountStyle,
             placeholderStyle,
             chipIcon,
             chipStyle,
@@ -419,6 +427,21 @@ export default {
             gap: 5px;
             cursor: pointer;
         }
+    }
+
+    .ww-input-select__trigger-icons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .ww-input-select__clear-icon {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 

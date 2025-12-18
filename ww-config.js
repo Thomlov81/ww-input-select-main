@@ -36,6 +36,7 @@ export default {
                     'placeholderFontWeight',
                     'placeholderFontColor',
                     'placeholderTextAlign',
+                    'placeholderPadding',
                 ],
             },
             {
@@ -59,12 +60,6 @@ export default {
                     'chipIndicatorIcon',
                     'chipIndicatorIconColor',
                     'chipIndicatorIconSize',
-                ],
-            },
-            {
-                label: "Clear icon",
-                isCollapsible: true,
-                properties: [
                     'chipIconUnselect',
                     'chipIconColor',
                     'chipIconSize',
@@ -1433,6 +1428,22 @@ export default {
             responsive: true,
             defaultValue: 'left',
             hidden: content => content.selectType !== 'single',
+        },
+        placeholderPadding: {
+            type: 'Spacing',
+            label: {
+                en: 'Padding',
+            },
+            states: true,
+            classes: true,
+            bindable: true,
+            responsive: true,
+            defaultValue: undefined,
+            /* wwEditor:start */
+            propertyHelp: {
+                tooltip: 'Padding around the placeholder text.',
+            },
+            /* wwEditor:end */
         },
 
         /* ------------------------------------

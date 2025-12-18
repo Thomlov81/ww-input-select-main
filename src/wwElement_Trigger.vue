@@ -18,14 +18,16 @@
         <!-- MULTI SELECT -->
         <div v-else :style="triggerStyle">
             <div v-if="isOptionSelected" class="ww-input-select__chip" :style="chipStyle">
-                <div
-                    v-if="chipIndicatorIconHtml"
-                    class="ww-input-select__chip-indicator"
-                    v-html="chipIndicatorIconHtml"
-                    :style="chipIndicatorIconStyle"
-                    aria-hidden="true"
-                ></div>
-                <span>{{ selectedChipsCount }} {{ multiSelectSuffix }}</span>
+                <div class="ww-input-select__chip-content">
+                    <div
+                        v-if="chipIndicatorIconHtml"
+                        class="ww-input-select__chip-indicator"
+                        v-html="chipIndicatorIconHtml"
+                        :style="chipIndicatorIconStyle"
+                        aria-hidden="true"
+                    ></div>
+                    <span>{{ selectedChipsCount }} {{ multiSelectSuffix }}</span>
+                </div>
                 <div
                     class="ww-input-select__chip__clear"
                     v-html="chipIconUnselect"
@@ -243,6 +245,7 @@ export default {
                 color: props.content.placeholderFontColor,
                 'font-weight': props.content.placeholderFontWeight,
                 'text-align': props.content.placeholderTextAlign,
+                padding: props.content.placeholderPadding,
                 width: '100%',
             };
         });
@@ -458,13 +461,21 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 5px;
+        justify-content: space-between;
+
+        .ww-input-select__chip-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+        }
 
         .ww-input-select__chip__clear {
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
     }
 

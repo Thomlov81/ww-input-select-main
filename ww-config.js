@@ -42,6 +42,7 @@ export default {
                 label: "Chip",
                 isCollapsible: true,
                 properties: [
+                    'chipWidth',
                     'chipFontFamily',
                     'chipFontSize',
                     'chipFontWeight',
@@ -1437,6 +1438,36 @@ export default {
         /* ------------------------------------
             CHIP STYLES
         ------------------------------------- */
+        chipWidth: {
+            type: 'Length',
+            label: {
+                en: 'Width',
+            },
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 1, max: 500 },
+                    { value: '%', label: '%', min: 1, max: 100 },
+                    { value: 'auto', label: 'auto' },
+                ],
+                noRange: true,
+                useVar: true,
+            },
+            states: true,
+            classes: true,
+            bindable: true,
+            responsive: true,
+            defaultValue: undefined,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'A length value: "auto", "100px", "50%", etc.',
+            },
+            propertyHelp: {
+                tooltip: 'The width of the chip. Leave empty for auto width.',
+            },
+            /* wwEditor:end */
+            hidden: content => content.selectType == 'single',
+        },
         chipFontFamily: {
             label: {
                 en: 'Font family',

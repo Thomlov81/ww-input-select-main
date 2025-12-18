@@ -26,19 +26,16 @@
                     aria-hidden="true"
                 ></div>
                 <span>{{ selectedChipsCount }} {{ multiSelectSuffix }}</span>
-            </div>
-            <span v-else :style="placeholderStyle">{{ data.placeholder }}</span>
-            <div class="ww-input-select__trigger-icons">
                 <div
-                    v-if="isOptionSelected"
-                    class="ww-input-select__clear-icon"
+                    class="ww-input-select__chip__clear"
                     v-html="chipIconUnselect"
                     :style="chipClearIconStyle"
                     aria-hidden="true"
                     @click="e => handleClearAllClick(e)"
                 ></div>
-                <div v-html="chipIcon" :style="triggerIconStyle" aria-hidden="true"></div>
             </div>
+            <span v-else :style="placeholderStyle">{{ data.placeholder }}</span>
+            <div v-html="chipIcon" :style="triggerIconStyle" aria-hidden="true"></div>
         </div>
     </div>
 </template>
@@ -270,6 +267,7 @@ export default {
                 padding: props.content.chipPadding,
                 'background-color': props.content.chipBgColor,
                 'border-radius': props.content.chipBorderRadius,
+                width: props.content.chipWidth,
                 ...borderCss,
             };
         });
@@ -461,6 +459,13 @@ export default {
         flex-direction: row;
         align-items: center;
         gap: 5px;
+
+        .ww-input-select__chip__clear {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .ww-input-select__chip-indicator {
@@ -468,21 +473,6 @@ export default {
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-    }
-
-    .ww-input-select__trigger-icons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
-    }
-
-    .ww-input-select__clear-icon {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 }
 

@@ -17,7 +17,16 @@
         </div>
         <!-- MULTI SELECT -->
         <div v-else :style="triggerStyle">
-            <span v-if="isOptionSelected" :style="selectedCountStyle">{{ selectedChipsCount }} {{ multiSelectSuffix }}</span>
+            <div v-if="isOptionSelected" class="ww-input-select__chip" :style="chipStyle">
+                <div
+                    v-if="chipIndicatorIconHtml"
+                    class="ww-input-select__chip-indicator"
+                    v-html="chipIndicatorIconHtml"
+                    :style="chipIndicatorIconStyle"
+                    aria-hidden="true"
+                ></div>
+                <span>{{ selectedChipsCount }} {{ multiSelectSuffix }}</span>
+            </div>
             <span v-else :style="placeholderStyle">{{ data.placeholder }}</span>
             <div class="ww-input-select__trigger-icons">
                 <div
@@ -295,6 +304,30 @@ export default {
             { immediate: true }
         );
 
+        const chipIndicatorIconHtml = ref(null);
+        watch(
+            () => props.content.chipIndicatorIcon,
+            async newValue => {
+                if (newValue) {
+                    chipIndicatorIconHtml.value = await getIcon(newValue);
+                } else {
+                    chipIndicatorIconHtml.value = null;
+                }
+            },
+            { immediate: true }
+        );
+
+        const chipIndicatorIconStyle = computed(() => {
+            return {
+                width: props.content.chipIndicatorIconSize || props.content.chipIconSize,
+                color: props.content.chipIndicatorIconColor || props.content.chipFontColor,
+                display: 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+                'pointer-events': 'none',
+            };
+        });
+
         const chipIconStyle = computed(() => {
             return {
                 width: props.content.chipIconSize,
@@ -371,6 +404,8 @@ export default {
             chipIconStyle,
             chipClearIconStyle,
             chipIconUnselect,
+            chipIndicatorIconHtml,
+            chipIndicatorIconStyle,
             chipMediaIconStyle,
             chipMediaImageStyle,
             chipIconFromOption,
@@ -419,14 +454,20 @@ export default {
         gap: 5px;
         width: 100%;
         flex-wrap: wrap;
+    }
 
-        .ww-input-select__chip {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
+    .ww-input-select__chip {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .ww-input-select__chip-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
     }
 
     .ww-input-select__trigger-icons {

@@ -39,6 +39,28 @@ export default {
                 ],
             },
             {
+                label: "Chip",
+                isCollapsible: true,
+                properties: [
+                    'chipFontFamily',
+                    'chipFontSize',
+                    'chipFontWeight',
+                    'chipFontColor',
+                    'chipPadding',
+                    'chipBgColor',
+                    'chipBorder',
+                    'chipBorderAll',
+                    'chipBorderTop',
+                    'chipBorderRight',
+                    'chipBorderBottom',
+                    'chipBorderLeft',
+                    'chipBorderRadius',
+                    'chipIndicatorIcon',
+                    'chipIndicatorIconColor',
+                    'chipIndicatorIconSize',
+                ],
+            },
+            {
                 label: "Clear icon",
                 isCollapsible: true,
                 properties: [
@@ -1425,7 +1447,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
         },
         chipFontSize: {
             type: 'Length',
@@ -1442,7 +1464,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: '14px',
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
         },
         chipFontWeight: {
             label: {
@@ -1469,7 +1491,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
         },
         chipFontColor: {
             label: {
@@ -1481,7 +1503,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
         },
         chipPadding: {
             type: 'Spacing',
@@ -1493,7 +1515,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: '2px 8px',
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
         },
         chipBgColor: {
             label: {
@@ -1505,19 +1527,7 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: () => true,
-        },
-        chipBorder: {
-            type: 'Border',
-            label: {
-                en: 'border',
-            },
-            defaultValue: undefined,
-            states: true,
-            classes: true,
-            bindable: true,
-            responsive: true,
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
         },
         chipBorder: {
             type: 'TextRadioGroup',
@@ -1540,11 +1550,8 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            defaultValue: {
-                __wwtype: 'f',
-                code: '[{"label":"Option 1","value":"opt1"},{"label":"Option 2","value":"opt2"}]',
-            },
-            hidden: () => true,
+            defaultValue: false,
+            hidden: content => content.selectType == 'single',
         },
         chipBorderAll: {
             type: 'Border',
@@ -1556,7 +1563,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: () => true,
+            hidden: content => content.chipBorder || content.selectType == 'single',
         },
         chipBorderTop: {
             type: 'Border',
@@ -1568,7 +1575,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: () => true,
+            hidden: content => !content.chipBorder || content.selectType == 'single',
         },
         chipBorderRight: {
             type: 'Border',
@@ -1580,7 +1587,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: () => true,
+            hidden: content => !content.chipBorder || content.selectType == 'single',
         },
         chipBorderBottom: {
             type: 'Border',
@@ -1592,7 +1599,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: () => true,
+            hidden: content => !content.chipBorder || content.selectType == 'single',
         },
         chipBorderLeft: {
             type: 'Border',
@@ -1604,7 +1611,7 @@ export default {
             bindable: true,
             responsive: true,
             defaultValue: undefined,
-            hidden: () => true,
+            hidden: content => !content.chipBorder || content.selectType == 'single',
         },
         chipBorderRadius: {
             type: 'Spacing',
@@ -1622,7 +1629,66 @@ export default {
             classes: true,
             bindable: true,
             responsive: true,
-            hidden: () => true,
+            hidden: content => content.selectType == 'single',
+        },
+        chipIndicatorIcon: {
+            label: { en: 'Indicator icon' },
+            type: 'SystemIcon',
+            states: true,
+            classes: true,
+            bindable: true,
+            responsive: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'A string that defines the icon code: `"fas fa-exclamation" | "wwi wwi-warning"`',
+            },
+            propertyHelp: {
+                tooltip: 'An optional icon displayed before the text inside the chip (e.g., warning or info icon).',
+            },
+            /* wwEditor:end */
+            hidden: content => content.selectType == 'single',
+        },
+        chipIndicatorIconColor: {
+            label: { en: 'Indicator icon color' },
+            type: 'Color',
+            defaultValue: undefined,
+            states: true,
+            classes: true,
+            bindable: true,
+            responsive: true,
+            /* wwEditor:start */
+            propertyHelp: {
+                tooltip: 'Color for the indicator icon. Defaults to chip font color if not set.',
+            },
+            /* wwEditor:end */
+            hidden: content => content.selectType == 'single',
+        },
+        chipIndicatorIconSize: {
+            type: 'Length',
+            label: {
+                en: 'Indicator icon size',
+            },
+            options: {
+                unitChoices: [{ value: 'px', label: 'px', min: 1, max: 500 }],
+                noRange: true,
+                useVar: true,
+            },
+            bindable: true,
+            responsive: true,
+            states: true,
+            classes: true,
+            defaultValue: undefined,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'number',
+                tooltip: 'A number that defines the icon size: `14`',
+            },
+            propertyHelp: {
+                tooltip: 'Size for the indicator icon. Defaults to chip icon size if not set.',
+            },
+            /* wwEditor:end */
+            hidden: content => content.selectType == 'single',
         },
         chipIconUnselect: {
             label: { en: 'Unselect icon', fr: 'Icône désélection' },
